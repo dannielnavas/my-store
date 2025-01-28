@@ -17,12 +17,31 @@ app.get('/products', (req, res) => {
     {
       id: 1,
       name: 'Product 1',
+      price: 100,
     },
     {
       id: 2,
       name: 'Product 2',
+      price: 200,
     },
   ]);
+});
+
+app.get('/products/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    id,
+    name: `Product ${id}`,
+    price: 100 * id,
+  });
+});
+
+app.get('/categories/:categoryId/products/:productId', (req, res) => {
+  const { categoryId, productId } = req.params;
+  res.json({
+    categoryId,
+    productId,
+  });
 });
 
 app.listen(3000, () => {
