@@ -41,5 +41,34 @@ router.post('/', (req, res) => {
     data: body,
   });
 });
+// recive todos los datos para actualizar
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'Updated',
+    data: body,
+    id,
+  });
+});
+
+// recive de forma parcial los datos
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'Updated',
+    data: body,
+    id,
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'Deleted',
+    id,
+  });
+});
 
 module.exports = router;
