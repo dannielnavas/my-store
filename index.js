@@ -4,6 +4,8 @@ const express = require('express');
 const routerApi = require('./routes');
 const app = express();
 
+app.use(express.json()); // implementar para los post
+
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
