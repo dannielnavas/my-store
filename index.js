@@ -23,7 +23,7 @@ const options = {
     }
   },
 };
-app.use(cors());
+app.use(cors(options));
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -40,6 +40,6 @@ app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server is running on port 3000');
 });
