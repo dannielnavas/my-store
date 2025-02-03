@@ -8,9 +8,22 @@ const {
   boomErrorHandler,
 } = require('./middlewares/error.handler');
 
+const cors = require('cors');
+
 const app = express();
 
 app.use(express.json()); // implementar para los post
+const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World');
