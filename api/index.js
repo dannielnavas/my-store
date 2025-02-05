@@ -13,7 +13,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json()); // implementar para los post
-const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+const whitelist = ['http://localhost:3000', 'https://myapp.co', '*'];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin)) {
@@ -23,7 +23,7 @@ const options = {
     }
   },
 };
-app.use(cors(options));
+app.use(cors());
 
 app.get('/api', (req, res) => {
   res.send('Hello World');
