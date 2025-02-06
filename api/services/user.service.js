@@ -14,8 +14,6 @@ class UserService {
     // });
   }
 
-  async create() {}
-
   // async find() {
   //   const client = await getConnection();
   //   const result = await client.query('SELECT * FROM users');
@@ -39,8 +37,29 @@ class UserService {
     return client;
   }
 
-  async update() {}
+  async create(data) {
+    const newUser = await models.User.create(data);
+    return newUser;
+  }
 
-  async delete() {}
+  async findOne(id) {
+    const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('user not found');
+    }
+    return user;
+  }
+
+  async update(id, changes) {
+    const user = await this.findOne(id);
+    const rta = await user.update(changes);
+    return rta;
+  }
+
+  async delete(id) {
+    const user = await this.findOne(id);
+    await user.destroy();
+    return { id };
+  }
 }
 module.exports = UserService;
