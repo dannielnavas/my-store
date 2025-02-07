@@ -20,7 +20,7 @@ const sequelize = new Sequelize(URI, {
 
 setupModels(sequelize);
 
-sequelize.sync(); // aqui crea la tabla
+sequelize.sync(); // aqui crea la tabla esto no debe pasar en produccion
 
 module.exports = sequelize;
 
