@@ -6,6 +6,7 @@ const {
   logErrors,
   errorHandler,
   boomErrorHandler,
+  ormErrorHandler,
 } = require('./middlewares/error.handler');
 
 const cors = require('cors');
@@ -37,6 +38,7 @@ routerApi(app);
 // se ejecuta despues del routerApi
 // el orden es importante por lo que el errorHandler debe finalizar
 app.use(logErrors);
+app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 

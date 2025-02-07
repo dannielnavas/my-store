@@ -8,7 +8,7 @@ const PASSWORD = encodeURIComponent(config.dbPassword);
 const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
 const sequelize = new Sequelize(URI, {
-  dialect: 'postgres',
+  dialect: 'postgres', // mysql, sqlite, postgres, mssql
   logging: true,
   dialectOptions: {
     ssl: {
@@ -23,3 +23,7 @@ setupModels(sequelize);
 sequelize.sync(); // aqui crea la tabla
 
 module.exports = sequelize;
+
+// install mysql2 como driver de mysql
+// pnpm add mysql2
+// configura las variables de entorno
