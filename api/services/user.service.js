@@ -33,7 +33,9 @@ class UserService {
   // }
 
   async find() {
-    const client = models.User.findAll();
+    const client = models.User.findAll({
+      include: ['customer'], // incluir la relacion con user de forma anidada
+    });
     return client;
   }
 
