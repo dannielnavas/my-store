@@ -34,6 +34,7 @@ const ProductSchema = {
     defaultValue: Sequelize.NOW,
   },
   categoryId: {
+    // se agrega la clave foránea
     field: 'category_id',
     allowNull: false,
     type: DataTypes.INTEGER,
@@ -48,6 +49,7 @@ const ProductSchema = {
 
 class Product extends Model {
   static associate(models) {
+    // se agrega la relación muchos a uno N:1
     this.belongsTo(models.Category, { as: 'category' });
   }
 
