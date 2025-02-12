@@ -27,6 +27,18 @@ const OrderSchema = {
     field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
+
+  total: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (this.items.length > 0) {
+        return this.items.reduce((total, item) => {
+          return total + (item.price * item.OrderProduct.amount);
+        }, 0);
+      }
+      return 0;
+    },
+  },
 };
 
 class Order extends Model {
@@ -37,7 +49,7 @@ class Order extends Model {
     });
     // se agrega la relación muchos a muchos N:M
     this.belongsToMany(models.Product, {
-      as: 'items',
+      as: 'items', // el item del campo virtual se toma de aqui
       through: models.OrderProduct, // atravez de cual tabla  resuelve la relación
       foreignKey: 'orderId', // indica la llave foranea de la tabla actual
       otherKey: 'productId', // indica la llave foranea de la tabla con la que se relaciona
