@@ -38,9 +38,9 @@ class Order extends Model {
     // se agrega la relación muchos a muchos N:M
     this.belongsToMany(models.Product, {
       as: 'items',
-      through: models.OrderProduct,
-      foreignKey: 'orderId',
-      otherKey: 'productId',
+      through: models.OrderProduct, // atravez de cual tabla  resuelve la relación
+      foreignKey: 'orderId', // indica la llave foranea de la tabla actual
+      otherKey: 'productId', // indica la llave foranea de la tabla con la que se relaciona
     });
   }
 
