@@ -51,6 +51,7 @@ class Customer extends Model {
   static associate(models) {
     // el as es el nombre de la relacion
     this.belongsTo(models.User, { as: 'user' }); // 1:1 Customer belongsTo User
+    this.hasMany(models.Order, { as: 'orders', foreignKey: 'customerId' }); // 1:M Customer hasMany Order para la relación
   }
 
   static config(sequelize) {
