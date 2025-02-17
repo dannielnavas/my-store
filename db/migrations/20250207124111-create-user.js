@@ -11,7 +11,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable(USER_TABLE, UserSchema);
+    await queryInterface.createTable(USER_TABLE, UserSchema); // se debe cambiar el Schema por el objeto que se encuentra en model con los compos necesarios para este momento tener en cuenta que se debe dejar sin campos virtuales
   },
 
   async down(queryInterface, Sequelize) {
