@@ -26,6 +26,7 @@ const options = {
   },
 };
 app.use(cors());
+require('./../utils/auth');
 
 app.get('/api', (req, res) => {
   res.send('Hello World');

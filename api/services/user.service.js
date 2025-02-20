@@ -40,6 +40,15 @@ class UserService {
     return client;
   }
 
+  async findByEmail(email) {
+    const client = models.User.findOne({
+      where: {
+        email,
+      },
+    });
+    return client;
+  }
+
   async create(data) {
     const hash = await bcrypt.hash(data.password, 10);
     const newUser = await models.User.create({
