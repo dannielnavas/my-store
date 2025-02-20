@@ -8,6 +8,7 @@ const {
   boomErrorHandler,
   ormErrorHandler,
 } = require('./middlewares/error.handler');
+const { checkApiKey } = require('./middlewares/auth.handler');
 
 const cors = require('cors');
 
@@ -30,7 +31,7 @@ app.get('/api', (req, res) => {
   res.send('Hello World');
 });
 
-app.get('/api/nueva-ruta', (req, res) => {
+app.get('/api/nueva-ruta', checkApiKey, (req, res) => {
   res.send('New endpoint');
 });
 
