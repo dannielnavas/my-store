@@ -42,6 +42,21 @@ class OrderService {
   async delete(id) {
     return { id };
   }
+
+  async findByUser(userId) {
+    const orders = await models.Order.findAll({
+      where: {
+        '$customer.user.id$': userId, // consulta por asociación
+      },
+      include: [
+        {
+          association: 'customer',
+          include: ['user'],
+        },
+      ],
+    });
+    return orders;
+  }
 }
 
 module.exports = OrderService;
