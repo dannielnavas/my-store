@@ -24,7 +24,7 @@ router.post(
 router.post('/recovery', async (req, res, next) => {
   try {
     const { email } = req.body;
-    const rta = await service.sendEmil(email);
+    const rta = await service.sendRecoveryPassword(email);
     res.json(rta);
   } catch (error) {
     next(error);

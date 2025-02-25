@@ -11,6 +11,10 @@ const config = {
   cors: process.env.CORS,
   apiKeyToken: process.env.API_KEY || 123456,
   jwtSecret: process.env.JWT_SECRET,
+  smtp: process.env.SMTP,
+  smtpPort: process.env.SMTP_PORT,
+  smtpUser: process.env.SMTP_USER,
+  smtpPassword: process.env.SMTP_PASSWORD,
 };
 
 module.exports = { config };

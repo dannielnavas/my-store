@@ -35,27 +35,46 @@ class AuthServices {
     };
   }
 
-  async sendEmil(email) {
+  async sendRecoveryPassword(email) {
     const user = await service.findByEmail(email);
     if (!user) {
       throw boom.unauthorized();
     }
+
+    const payload = {
+      sub: user.id,
+    };
+
+    const token = jwt.sign(payload, config.jwtSecret, {
+      expiresIn: '15m',
+    }); // el secreto pude cambiar y este si expira en 15 minutos
+
+    const link = `http:localhost:3000/recovery?token=${token}`;
+
+    await service.update(user.id, { recoveryToken: token });
+
+    const mail = {
+      from: config.smtpUser, // sender address
+      to: user.email,
+      subject: 'Email para recuperar contraseña', // Subject line
+      text: `Hola ${user.name}`, // plain text body
+      html: `<b>Ingresa en este link = ${link} </b>`, // html body
+    };
+
+    return await this.sendEmil(mail);
+  }
+
+  async sendEmil(infoMail) {
     let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: config.smtpHost,
       secure: true, // true for 465, false for other ports
-      port: 465,
+      port: config.smtpPort,
       auth: {
-        user: 'dannielnavas@gmail.com',
-        pass: '',
+        user: config.smtpUser,
+        pass: config.smtpPassword,
       },
     });
-    await transporter.sendMail({
-      from: 'dannielnavas@gmail.com', // sender address
-      to: user.email,
-      subject: 'Este es un nuevo correo', // Subject line
-      text: `Hola ${user.name}`, // plain text body
-      html: `<b>Hola ${user.name}</b>`, // html body
-    });
+    await transporter.sendMail(infoMail);
     return { message: 'Email enviado' };
   }
 }
