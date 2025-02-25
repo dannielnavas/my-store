@@ -31,4 +31,14 @@ router.post('/recovery', async (req, res, next) => {
   }
 });
 
+router.post('/change-password', async (req, res, next) => {
+  try {
+    const { token, newPassword } = req.body;
+    const rta = await service.sendRecoveryPassword(email);
+    res.json(rta);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
